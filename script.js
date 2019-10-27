@@ -8,13 +8,18 @@
 //number of notes
 timevar = 100
 timetracker = -timevar
+
 //button to init program
 window.onload = function () {
-    document.querySelector('button').addEventListener('click', () => initialise())
+    document.getElementById('play').addEventListener('click', () => initialise())
 }
 //main program
 function initialise() {
     //add to timetracker till == timevar
+    
+   
+    //myKnob.setPeaks(150);
+    
     Tone.Transport.start();
     timetracker += timevar
     //init matrix with probabilities
@@ -74,9 +79,16 @@ function initialise() {
             }
         }).toMaster()
         synth.set("detune", math.random(-25, 25));
-        Tone.Transport.bpm.value = 65;
+        
+        BPM = document.getElementById('rangevalue').innerHTML;
+        BPD = document.getElementById('rvalinp')
+        BPD.addEventListener('change', function (evt) {
+            console.log('sfsdfsd')
+            BPM = document.getElementById('rangevalue').innerHTML
+        });
+        console.log(BPM)
+        Tone.Transport.bpm.value = BPM;
         var drum = new Tone.MembraneSynth().toMaster()
-
         var loop = new Tone.Loop(function (time) {
             console.log(time)
             inittime = math.matrix([0, 0, 1, 0, 0])

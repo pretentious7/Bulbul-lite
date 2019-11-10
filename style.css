@@ -1,58 +1,89 @@
 /*This is a comment */
+
+html{
+
+  max-width: 100%;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+body{
+  margin:0;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.play-contain{
+  margin-left: 10%;
+  display: inline;
+  position: absolute;
+}
+
+#play-button{
+  position: absolute;
+}
 .Butts{
     margin: auto auto;
     float: center;
 }
-.play{
-    background-color: #de8d37;
-    align-self: center;
+
+#content_container{
+  width: 92%;
+  margin: 4% auto;
+}
+
+#button-holder{
+  text-align: center;
+  margin: 0px auto;
+  display: inline-box;
+  margin-bottom: 2.5%;
+}
+
+.gridbutts{
+  margin-top: 5pt;
+  margin-left:5pt;
+  border-radius: 15%;
+  background-color: #47a7f5;
+  width: 3em;
+  height: 3em;
+  padding: 1em;
+  font-family: 'IBM Plex Mono', monospace;
+  align-self: center;
+  text-align: center;
+  border:none;
+  transition:all 1s ease;
+  -webkit-transition-property:color, background; 
+-webkit-transition-duration: 0.3s, 0.3s; 
+-webkit-transition-timing-function: linear, ease-in-out;
+}
+
+.gridbutts:hover{
+  background-color: #CD5243;
+}
+.gridbutts:active{
+  background-color: #c4e4ff;
+}
+
+#play-button{
+    background-color: rgb(8, 11, 9);
     font-size: 36pt;
     font-weight: bold;
     border: none;
     text-align: center;
     font-family: 'IBM Plex Mono', monospace;
     border-radius: 25%;
-    width: 300px;
-    height: 300px;
-    
-    margin: 0;
-    margin-top: 50px;
-    position: absolute;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
 
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
 }
-.play:hover{
-    background-color: #ffdab3;
-    width: 325;
-    height: 325;
-}
-.play:active{
-    background-color: skyblue;
-}
-.ripple {
-    background-position: center;
-    transition: background 0.5s;
-  }
-  .ripple:hover {
-    background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
-  }
-  .ripple:active {
-    background-color: #6eb9f7;
-    background-size: 100%;
-    transition: background 0s;
-  }
+
 .circle{
-    background-color: #CD5243;
-    margin-top: 50px;
-    width: 125px;
-    height: 125px;
-    font-size: 24pt;
+    background-color: #927FFF;
+    margin-top: 2%;
+    width: 50px;
+    height: 50px;
+    font-size: 15pt;
     text-align: center;
-    border-radius: 50%;
+    border-radius: 15%;
     padding: 10px;
     border: none;
     margin-left: 10px;
@@ -62,8 +93,11 @@
     transition-duration: 0.4s;
 }
 .circle:hover{
-    background-color: salmon;
-    font-size: 28pt;
+    background-color: #B792FF;
+    font-size: 17pt;
+}
+.circle:active{
+  background-color: #c4e4ff;
 }
 body{
     background: rgb(8, 11, 9);
@@ -75,12 +109,12 @@ body{
   height: 500px;
   margin: auto;
   text-align: center;
-  margin-top: 200px;
+  margin-top: 1%;
 }
 
 .slider {
   width: 100%;
-  margin: 50% auto;
+  margin: 5% auto;
 }
 
 /* track */
@@ -88,7 +122,7 @@ input[type="range"] {
   -webkit-appearance: none !important;
   width: 100%;
   height: 1px;
-  background-color: #ff5252;
+  background-color: rgb(201, 24, 24);
   border: none;
   border-radius: 10px;
   margin: auto;
@@ -100,7 +134,7 @@ input[type="range"] {
 input[type="range"]::-moz-range-track { 
   width: 100%;
   height: 1px;
-  background-color: #ff5252;
+  background-color: rgb(201, 24, 24);
   border: none;
   border-radius: 10px;
   margin: auto;
@@ -117,7 +151,7 @@ input[type="range"]::-webkit-slider-thumb {
   width: 20px;
   height: 20px;
   border: none;
-  background-color: #ff5252;
+  background-color: rgb(201, 24, 24);
   border-radius: 40px; 
   box-shadow: 0px 0px 0px green;
   transition: all 400ms;

@@ -1,21 +1,117 @@
-/*[0.15, 0.35, 1./4, 0., 1./4, 0.],
-    [0.5, 0.1, 0., 0.4, 0.0, 0.],
-    [0., 0., 0., 1./4, 1./4, 1./2],
-    [1./16, 0., 1./4+1./8, 1./4, 1./4, 1./16],
-    [0., 0., 0.4, 1./4, 0.25, 0.1],
-    [0., 0., 0., 1./4, 1./2, 1./4]*/
-
-//number of notes
-//button to init program
+var playLMCounter = 0
 window.onload = function () {
-    document.getElementById('play').addEventListener('click', () => initialise())
+    document.getElementById('play-button').onclick = function(){
+        playLMCounter++
+        initialise()
+        if(playLMCounter%2 == 0){
+        document.getElementById('play-button').innerHTML = '▶️'
+        }else{
+            document.getElementById('play-button').innerHTML = '⏸️'
+        }
+    }
+    generate()
 }
+var growl = new Tone.Sampler({
+			"A0" : "A0.mp3",
+			"C1" : "C1.mp3",
+			"D#1" : "Ds1.mp3",
+			"F#1" : "Fs1.mp3",
+			"A1" : "A1.mp3",
+			"C2" : "C2.mp3",
+			"D#2" : "Ds2.mp3",
+			"F#2" : "Fs2.mp3",
+			"A2" : "A2.mp3",
+			"C3" : "C3.mp3",
+			"D#3" : "Ds3.mp3",
+			"F#3" : "Fs3.mp3",
+			"A3" : "A3.mp3",
+			"C4" : "C4.mp3",
+			"D#4" : "Ds4.mp3",
+			"F#4" : "Fs4.mp3",
+			"A4" : "A4.mp3",
+			"C5" : "C5.mp3",
+			"D#5" : "Ds5.mp3",
+			"F#5" : "Fs5.mp3",
+			"A5" : "A5.mp3",
+			"C6" : "C6.mp3",
+			"D#6" : "Ds6.mp3",
+			"F#6" : "Fs6.mp3",
+			"A6" : "A6.mp3",
+			"C7" : "C7.mp3",
+			"D#7" : "Ds7.mp3",
+			"F#7" : "Fs7.mp3",
+			"A7" : "A7.mp3",
+			"C8" : "C8.mp3"
+		}, {
+			"release" : 1,
+			"baseUrl" : "./audio/"
+        }).toMaster();
+    growl.volume.value = -3;
+    var synth2 = new Tone.Sampler({
+        "G3": "Light_G3.wav",
+        "A#3": "Light_As3.wav",
+        "C3": "Light_C3.wav",
+        "D3": "Light_D3.wav",
+        "F3": "Light_F3.wav",
+        "G4": "Light_G4.wav",
+        "A#4": "Light_As4.wav"
+    }, {
+        "release" : 1,
+		"baseUrl" : "./audio/"
+    }).toMaster();
+    synth2.volume.value = 7
 
+    var synth3 = new Tone.Sampler({
+        "G3": "PlongG3.wav",
+        "A#3": "PlongAs3.wav",
+        "C3": "PlongC3.wav",
+        "D3": "PlongD3.wav",
+        "F3": "PlongF3.wav",
+        "G4": "PlongG4.wav",
+        "A#4": "PlongAs4.wav"
+    }, {
+        "release" : 1,
+		"baseUrl" : "./audio/"
+    }).toMaster();
+    synth3.volume.value = 3
 
+Tone.Transport.bpm.value = 65;
+var drum = new Tone.Sampler({
+    "G3": "Drum01.wav",
+    // "A#3": "Drum01.wav",
+    // "C3": "Drum01.wav",
+    // "D3": "Drum03.wav",
+    // "F3": "Drum03.wav",
+    // "G4": "Drum03.wav",
+    // "A#4": "Drum01.wav"
+}, {
+    "release": 1,
+    "baseUrl": "./audio/"
+}).toMaster()
+var drum2 = new Tone.Sampler({
+    //"G3": "Drum01.wav",
+    // "A#3": "Drum01.wav",
+    // "C3": "Drum01.wav",
+    "D3": "Drum03.wav",
+    // "F3": "Drum03.wav",
+    // "G4": "Drum03.wav",
+    // "A#4": "Drum01.wav"
+}, {
+    "release": 1,
+    "baseUrl": "./audio/"
+}).toMaster()
+drum2.volume.value = -5
 //main program
 function initialise() {
+
     //add to timetracker till == timevar
-    Tone.Transport.start();
+    // if (playSketch == true){
+    //     Tone.Transport.toggle(0);
+    // }else if(playSketch == false){
+    //     Tone.Transport.off();
+    // }
+    Tone.Transport.cancel()
+    Tone.Transport.toggle()
     //init matrix with probabilities
     genmatrix = math.matrix([
         [0.21, 0.26, 0.16, 0.18, 0.19],
@@ -25,28 +121,21 @@ function initialise() {
         [0.50, 0.25, 0.12, 0.06, 0.07]
     ])
     genmatrix_t = math.matrix([
-        [0.5, 0, 0.25, 0.25, 0],
+        [0.25, 0.125, 0.25, 0.25, 0.125],
         [0.05, 0.25, 0.35, 0.35 / 2, 0.35 / 2],
         [0.05, 0.15, 0.4, 0.2, 0.2],
         [0.1, 0.1, 0.2, 0.4, 0.2],
         [0.1, 0.1, 0.1, 0.2, 0.5]
     ])
 
-    //idents = math.identity(5)
-    //idents = math.multiply(1/2,idents)
-
     genmatrix = math.multiply(1/2,genmatrix)
     genmatrix_t = math.multiply(1/2,genmatrix_t)
 
     idents = genmatrix_t
 
-
     bigmat = []
-
+    var alpha = 1
     console.log(genmatrix)
-
-
-
 
     for(var i = 0;i<=4;i++){
         matrow = math.concat(genmatrix._data[i],idents._data[i])
@@ -59,19 +148,13 @@ function initialise() {
         matrow = math.concat(idents._data[i],genmatrix_t._data[i])
         bigmat[5+i] = matrow
     }
-
     bigmat = math.matrix(bigmat)
-
-
-
 
     //get timevar amount of notes
     control_time = 0
     notes(0)
-
     //function that triggers notes
     function notes(a) {
-
         //init synth tone
         var toneNow = new Tone().now();
         var NoteDict = {
@@ -79,27 +162,21 @@ function initialise() {
             1: "A#3",
             2: "C3",
             3: "D3",
-            4: "F3",
-            5: "G3",
-            6: "A#3"
+            4: "F3"
         }
         var NoteDict3 = {
             0: "G2",
             1: "A#2",
             2: "C2",
             3: "D2",
-            4: "F2",
-            5: "G2",
-            6: "A#2"
+            4: "F2"
         }
         var NoteDict2 = {
             0: "G1",
             1: "A#1",
             2: "C1",
-            2: "D1",
-            4: "F1",
-            5: "G1",
-            6: "A#1"
+            3: "D1",
+            4: "F1"
         }
         var TimeDict = {
             0: '1:0:0',
@@ -120,7 +197,7 @@ function initialise() {
             }
         }).toMaster()
         synth.set("detune", math.random(-25, 25));
-        synth.volume.value= -5
+        synth.volume.value = -7
 
         BPM = document.getElementById('rangevalue').innerHTML;
         BPM = 50
@@ -160,131 +237,54 @@ function initialise() {
             console.log(bigmat)
         });
 
-
-
-
-        Tone.Transport.bpm.value = 65;
-        var drum = new Tone.MembraneSynth({
-            pitchDecay : 0.02 ,
-            octaves : 5 ,
-            oscillator : {
-            type : 'sine'
-            } ,
-            envelope : {
-            attack : 0.01 ,
-            decay : 0.4 ,
-            sustain : 0.1 ,
-            release : 1.4     ,
-            attackCurve : 'exponential'
-            }
-        }).toMaster()
-        drum.volume.value=5
-
-        var growl= new Tone.FMSynth({
-            harmonicity : 5 ,
-            modulationIndex : 10 ,
-            detune : -10 ,
-            oscillator : {
-            type : 'sawtooth',
-            } ,
-            envelope : {
-            attack : 1 ,
-            decay : 0.3 ,
-            sustain : 0.5 ,
-            release : 0.3
-            } ,
-            modulation : {
-            type : 'square'
-            } ,
-            modulationEnvelope : {
-            attack : 1 ,
-            decay : 0 ,
-            sustain : 0.5 ,
-            release : 0.5
-            },
-            modulation:{
-                type: 'sine'
-            },
-            modulationEnvelope:{
-                attack: 0.5,
-                decay: 0.5,
-                sustain: 0.1,
-                release: 0.7
-            }
-            
-        }).toMaster()
-        growl.volume.value = 3;
-
-        const synth2 = new Tone.Synth({
-            oscillator : {
-                type : 'sine'
-                } ,
-                envelope : {
-                attack : 1 ,
-                decay : 0.01 ,
-                sustain : 0.01 ,
-                release : 0.5
-                },
-                modulation:{
-                    type: 'square'
-                },
-                modulationEnvelope:{
-                    attack: 0.7,
-                    decay: 0.02,
-                    sustain:0.01,
-                    release: 0.4
-                }
-        }).toMaster()
-        synth2.volume.value = 1
-
         inittime = math.matrix([0, 0, 1, 0, 0])
         initvec = math.matrix([1., 0., 0., 0., 0.])
         biginit = math.concat(initvec,inittime)
 
+        biginit = [1.,0,0,0,0,0,0,0,0,0]
+
         notevec = initvec
         timevec = inittime
 
-
-
-
-
         var loop = new Tone.Loop(function (time) {
             console.log(time)
-
-            prodnew = math.multiply(biginit,bigmat)
+            prod = math.multiply(biginit,bigmat)
             //assign value to array that plays note
-
-            console.log(prodnew)
-
-            console.log(math.subset(prodnew,math.index(math.range(0,5))))
-
-            notevec = getnote(math.subset(prodnew, math.index(math.range(0,5))))
-            timevec =  getnote(math.subset(prodnew, math.index(math.range(5,10))))
+            notevec = getnote(math.subset(prod, math.index(math.range(0,5))))
+            timevec =  getnote(math.subset(prod, math.index(math.range(5,10))))
             var i
             for (i = 0; i <= 4; i++) {
                 if (notevec._data[i] == 1) {
                     break
                 }
-                else{
-                    notevec._data[i] = [1,0,0,0,0]
-                }
+               
             }
             var j = 0
             for (j = 0; j <= 4; j++) {
                 if (timevec._data[j] == 1) {
                     break
                 }
-                else{
-                    timevec._data[j] = [0,1,0,0,0]
-                }
+               
             }
             //console.log(TimeDict[j])
             entry_var = TimeDict[j]
 
-            console.log('key syn')
+            console.log(bigmat)
 
+            var getButton = document.getElementById("row"+getUnityIndex(getnote(prod))).getElementsByTagName("button")
+            for (const element of getButton){
+                var orig = "#47a7f5";
+                element.style.backgroundColor = "#0960b5"
+                setTimeout(function(){
+                element.style.backgroundColor = orig
+            }, 500);
+                //element.style.backgroundColor = "#0960b5"
+            }
+
+            synth3.triggerAttackRelease(NoteDict[i], entry_var)
             synth.triggerAttackRelease(NoteDict3[i], entry_var) //a/(j+1) + timetracker );
             loop.interval = entry_var;
+            biginit = getnote(prod)
         }, '1n').start(0);
 
         loop.humanize
@@ -309,9 +309,18 @@ function initialise() {
             entry_var = TimeDict[j]
 
             console.log('drum')
-
-            drum.triggerAttackRelease(NoteDict2[i], '8n')
-            //loop2.interval = entry_var;
+            var getButton = document.getElementById("row"+getUnityIndex(getnote(prod))).getElementsByTagName("button")
+            for (const element of getButton){
+                var orig = "#47a7f5";
+                element.style.backgroundColor = "#F27B13"
+                setTimeout(function(){
+                element.style.backgroundColor = orig
+            }, 500);
+                //element.style.backgroundColor = "#F27B13"
+            }
+            drum.triggerAttackRelease(NoteDict[i], '8n')
+            loop2.interval = entry_var;
+            biginit = getnote(prod)
         }, '4n').start(0);
 
 
@@ -341,9 +350,6 @@ function initialise() {
                 if (timevec._data[j] == 1) {
                     break
                 }
-                else{
-                    timevec._data[j] = [1,0,0,0,0]
-                }
             }
             entry_var = TimeDict[j]
 
@@ -353,10 +359,22 @@ function initialise() {
             }
 
             console.log('chord')
+            var getButton = document.getElementById("row"+getUnityIndex(getnote(prod))).getElementsByTagName("button")
+            for (const element of getButton){
+                var orig = "#47a7f5";
+                element.style.backgroundColor = "red"
+                setTimeout(function(){
+                element.style.backgroundColor = orig
+            }, 500);
+                //element.style.backgroundColor = "red"
+            }
 
             growl.triggerAttackRelease(Notes_chord[0], '1n')
             growl.triggerAttackRelease(Notes_chord[1], '1n')
             growl.triggerAttackRelease(Notes_chord[2], '1n')
+
+            biginit = getnote(prod)
+
         }, '1n').start(0);
         loop3.humanize
 
@@ -380,23 +398,35 @@ function initialise() {
             }
             entry_var = TimeDict[j]
 
+
+
             console.log('main synth')
-
+            console.log(getnote(prod))
+            argh = getnote(prod)
+            console.log(prod)
+            console.log(getUnityIndex(argh))
+            var getButton = document.getElementById("row"+getUnityIndex(getnote(prod))).getElementsByTagName("button")
+            for (const element of getButton){
+                var orig = "#47a7f5";
+                element.style.backgroundColor = "#9223FF"
+                setTimeout(function(){
+                element.style.backgroundColor = orig
+            }, 500);
+            }
             synth2.triggerAttackRelease(NoteDict[i], entry_var)
+            drum2.triggerAttackRelease(NoteDict[i], entry_var)
             loop4.interval = entry_var;
+
+            biginit = getnote(prod)
+
         }, '4n').start(0);
-
-     
-        
-
     }
-
 
     function getnote(v) {
 
         sumtot = math.sum(v)
 
-        v = math.multiply(sumtot,v)
+        v = math.multiply(1/sumtot,v)
 
         randno = math.random()
         sel = 0
@@ -445,7 +475,6 @@ function initialise() {
             //}
         }
     }
-
     //switching rows
     function rowswitch(i1, i2, mat) {
         //take mat, construct row switching mat.
@@ -512,5 +541,13 @@ function initialise() {
         ide._data[0] = storage
         console.log(ide)
         return math.multiply(mat,ide)
+    }
+
+    function getUnityIndex(matarr){
+        for(let m=0;m<matarr._size[0];m++){
+            if(matarr._data[m]>=0.99){
+                return m
+            }
+        }
     }
 }

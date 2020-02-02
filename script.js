@@ -1,4 +1,6 @@
+var bigmat = math.matrix([[0,0],[0,0]])
 var playLMCounter = 0
+var fadeconst = 500
 window.onload = function () {
     document.getElementById('play-button').onclick = function(){
         playLMCounter++
@@ -277,7 +279,7 @@ function initialise() {
                 element.style.backgroundColor = "#0960b5"
                 setTimeout(function(){
                 element.style.backgroundColor = orig
-            }, 500);
+            }, fadeconst);
                 //element.style.backgroundColor = "#0960b5"
             }
 
@@ -315,7 +317,7 @@ function initialise() {
                 element.style.backgroundColor = "#F27B13"
                 setTimeout(function(){
                 element.style.backgroundColor = orig
-            }, 500);
+            }, fadeconst);
                 //element.style.backgroundColor = "#F27B13"
             }
             drum.triggerAttackRelease(NoteDict[i], '8n')
@@ -365,7 +367,7 @@ function initialise() {
                 element.style.backgroundColor = "red"
                 setTimeout(function(){
                 element.style.backgroundColor = orig
-            }, 500);
+            }, fadeconst);
                 //element.style.backgroundColor = "red"
             }
 
@@ -411,7 +413,7 @@ function initialise() {
                 element.style.backgroundColor = "#9223FF"
                 setTimeout(function(){
                 element.style.backgroundColor = orig
-            }, 500);
+            }, fadeconst);
             }
             synth2.triggerAttackRelease(NoteDict[i], entry_var)
             drum2.triggerAttackRelease(NoteDict[i], entry_var)

@@ -12,15 +12,20 @@
     
     <!-- import the webpage's javascript file -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/13.0.1/Tone.min.js"></script>
-
+    <script src="https://threejs.org/build/three.js"></script>
+    
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.2.2/math.js"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"></script>
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.2.2/math.js"></script>
-  
+    
     <script src="script.js" defer></script>
-    <script src="script2.js" defer></script>
+    <script src="script2.js" defer ></script>
     
   </head> 
   <body>
+    <div id="scene-container">
+    </div>
     <div id='content_container'>
       <div id='play-contain'>
           <button id='play-button' class = 'play ripple'>▶️</button>
@@ -31,24 +36,24 @@
       <div class = 'Butts' style="text-align:center;">
         
         <button id = 'left-move' class = 'circle'>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
+              <path fill="none" d="M0 0h24v24H0V0z" /></svg>
+        </button>
+        <button id = 'up-move' class = 'circle'>
+             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+              <path fill="none" d="M0 0h24v24H0V0z" /></svg>
+        </button>
+        <button id = 'right-move' class = 'circle'>
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
               <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z" />
               <path fill="none" d="M0 0h24v24H0V0z" /></svg>
         </button>
-        <button id = 'up-move' class = 'circle'>
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+        <button id = 'down-move' class = 'circle'>
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
               <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z" />
               <path d="M0 0h24v24H0z" fill="none" /></svg>
-        </button>
-        <button id = 'right-move' class = 'circle'>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-              <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
-              <path fill="none" d="M0 0h24v24H0V0z" /></svg>
-        </button>
-        <button id = 'down-move' class = 'circle'>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-              <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
-              <path fill="none" d="M0 0h24v24H0V0z" /></svg>
         </button>
       </div>
       <div class="container">
@@ -58,6 +63,8 @@
         </div>
       </div>
       </div>
+      <script src="app.js" defer></script>
+
   </body>
 </html>
 

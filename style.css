@@ -1,10 +1,13 @@
 /*This is a comment */
 
+/*This is a comment */
+
 html{
 
   max-width: 100%;
   margin: 0 auto;
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 body{
   margin:0;
@@ -19,16 +22,30 @@ body{
 }
 
 #play-button{
-  position: absolute;
+position: absolute;
+float: left;
+transform: translateX(-600%) translateY(200%);
 }
 .Butts{
     margin: auto auto;
     float: center;
 }
 
+#scene-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
 #content_container{
   width: 92%;
   margin: 4% auto;
+  position: absolute;
+	 top: 10px;
+	width: 100%;
+	text-align: center;
+	z-index: 100;
+	display:block;
 }
 
 #button-holder{
@@ -39,6 +56,7 @@ body{
 }
 
 .gridbutts{
+  opacity: 75%;
   margin-top: 5pt;
   margin-left:5pt;
   border-radius: 15%;
@@ -52,7 +70,7 @@ body{
   border:none;
   transition:all 1s ease;
   -webkit-transition-property:color, background; 
--webkit-transition-duration: 0.3s, 0.3s; 
+-webkit-transition-duration: 0.1s, 0.1s; 
 -webkit-transition-timing-function: linear, ease-in-out;
 }
 
@@ -94,13 +112,9 @@ body{
 }
 .circle:hover{
     background-color: #B792FF;
-    font-size: 17pt;
 }
 .circle:active{
   background-color: #c4e4ff;
-}
-body{
-    background: rgb(8, 11, 9);
 }
 
 .container {
@@ -114,7 +128,7 @@ body{
 
 .slider {
   width: 100%;
-  margin: 5% auto;
+  margin: 7% auto;
 }
 
 /* track */
@@ -196,3 +210,4 @@ input[type="range"]::-moz-range-thumb:active{
   width: 100%;
   color: #ff5252;
 }
+
